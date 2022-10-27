@@ -63,6 +63,23 @@ app.get('/logout', (_, res) => {
     res.send();
 });
 
+app.get('/getalbum', async (req, res) => {
+    let target_id = req.query['userid'];
+    if (target_id === '0') {
+        target_id = req.cookies.user_id;
+    }
+    try {
+        let media_docs = await req.media_list.find({userid: target_id}, {
+            skip: parseInt(req.query['pagenum']) * ITEM_PER_PAGE,
+            limit: ITEM_PER_PAGE
+        });
+        res.json({page_contents: media_docs});
+    } catch (err) {
+        console.error(err);
+        res.send(err);
+    }
+});
+
 
 async function load(user_docs, req) {
     let album_docs = await Promise.all(user_docs[0]['friends'].map( async (friend) => {

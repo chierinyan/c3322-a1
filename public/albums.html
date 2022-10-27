@@ -40,14 +40,14 @@
             <ul id="albums_ul"></ul>
         </div>
 
-        <div id="views">
+        <div id="views" style="display:none">
             <div id="preview">
                 <div id="album"></div>
 
-                <div id="pagenation" style="display: none;">
+                <div id="pagenation">
                     <div id="footer"></div>
-                    <button id="previous" onclick="turnto(event)">Previous</button>
-                    <button id="next" onclick="turnto(event)">Next</button>
+                    <button id="previous" onclick="turnto(-1)">&lt;</button>
+                    <button id="next" onclick="turnto(1)">&gt;</button>
                 </div>
             </div>
 

@@ -16,6 +16,13 @@ img, video {
     object-fit: scale-down;
 }
 
+input, button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: grab;
+}
+
 
 #nav {
     width: 1080px;
@@ -56,12 +63,6 @@ img, video {
     align-content: center;
 }
 
-#user_area :is(input, button) {
-    border: none;
-    outline: none;
-    background-color: transparent;
-}
-
 #login_form > div > input {
     width: 125px;
     cursor: text;
@@ -81,7 +82,6 @@ img, video {
     grid-area: submit;
     border-left: dotted;
     border-width: thin;
-    cursor: grab;
 }
 
 #motd > div {
@@ -117,7 +117,7 @@ img, video {
 
 #albums_ul {
     width: 240px;
-    min-height: 720px;
+    height: 100%;
     padding: 0;
     margin: 0;
     background-color: #FCF3CF;
@@ -138,5 +138,76 @@ img, video {
 
 #albums_ul > li:nth-child(even) {
     background-color: #F9E79F;
+}
+
+
+#views {
+    background-color: #FEF9E7;
+}
+
+#album {
+    width: 840px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 30px;
+    padding: 20px 15px;
+}
+
+.item {
+    width: 100%;
+    border: dotted;
+    border-width: thick;
+    border-color: #F7DC6F;
+    border-radius: 30px;
+}
+
+.item:nth-child(even) {
+    border-color: #F8C471;
+}
+
+.media {
+    width: 100%;
+    height: 100%;
+}
+
+#album .media :is(img, video) {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#pagenation {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 2em;
+    grid-template-areas:
+        "footer footer"
+        "previous next";
+}
+
+#footer {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    grid-area: footer;
+}
+
+#pagenation > button {
+    width: 100%;
+    height: 100%;
+    font: bolder;
+    background-color: #FCF3CF;
+}
+
+#pagenation > button:disabled {
+    display: none;
+}
+
+#previous {
+    grid-area: previous;
+}
+
+#next {
+    grid-area: next;
 }
 
