@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author=" content="ZHU Ziyao- 3035772145">
+    <title>Album - COMP3322 Assignment 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="/javascripts/script.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <div id="nav">
+        <h1>Album</h1>
+        <div id="user_area">
+            <form id="login_form" onsubmit="login(event)">
+                <div id="username_input">
+                    <span>username: </span>
+                    <input type="text" name="username">
+                </div>
+
+                <div id="password_input">
+                    <span>password: </span>
+                    <input type="password" name="password">
+                </div>
+                <input type="submit" value="Login">
+            </form>
+
+            <div id="motd" style="display:none">
+                <div>
+                    Hello <span class="username"></span>!
+                </div>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="main">
+        <div id="albums" style="display:none">
+            <ul id="albums_ul"></ul>
+        </div>
+
+        <div id="views">
+            <div id="preview">
+                <div id="album"></div>
+
+                <div id="pagenation" style="display: none;">
+                    <div id="footer"></div>
+                    <button id="previous" onclick="turnto(event)">Previous</button>
+                    <button id="next" onclick="turnto(event)">Next</button>
+                </div>
+            </div>
+
+            <div id="view" style="display: none;">
+                <button onclick="close_view()">X</button>
+                <div class="item"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
