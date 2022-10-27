@@ -140,6 +140,12 @@ input, button {
     background-color: #F9E79F;
 }
 
+#albums_ul > li.selected {
+    font-style: italic;
+    border: dotted;
+    border-width: thick;
+    border-color: #F39C12;
+}
 
 #views {
     background-color: #FEF9E7;
@@ -150,7 +156,7 @@ input, button {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 30px;
-    padding: 20px 15px;
+    padding: 20px 15px 30px;
 }
 
 .item {
@@ -197,8 +203,8 @@ input, button {
     cursor: default;
 }
 
-#album .liked {
-    margin: 10px 5px;
+.liked {
+    margin: 10px;
     text-align: center;
 }
 
@@ -218,7 +224,16 @@ input, button {
     border-radius: 50%;
     border-color: #F8C471;
     font: bolder;
+    font-size: 22px;
+    color: #D35400;
     text-align: center;
+    display:flex;
+    justify-content: center;
+    align-content: center;
+}
+
+#view .liked {
+    font-size: 20px;
 }
 
 #pagenation {
@@ -242,11 +257,13 @@ input, button {
     width: 100%;
     height: 100%;
     font: bolder;
+    font-size: 25px;
     background-color: #FCF3CF;
 }
 
 #pagenation > button:disabled {
-    display: none;
+    color: #CCCCCC;
+    cursor: default;
 }
 
 #previous {

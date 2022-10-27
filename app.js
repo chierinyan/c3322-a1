@@ -108,6 +108,8 @@ async function load(user_docs, req) {
         };
     }))
 
+    albums[0]['id'] = '0';
+
     return albums;
 }
 
