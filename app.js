@@ -80,6 +80,17 @@ app.get('/getalbum', async (req, res) => {
     }
 });
 
+app.post('/postlike', async (req, res) => {
+    let username = (await req.user_list.find({_id: monk.id(req.cookies.user_id)}))[0]['username'];
+    let media_id_obj = monk.id(req.body.photovideoid);
+    let liked_list = (await req.media_list.find({_id: media_id_obj}))[0]['likedby'];
+    if (! liked_list.includes(username)) {
+        liked_list.push(username);
+        req.media_list.update({_id: media_id_obj}, {$set: {likedby: liked_list}});
+    }
+    res.json({likedby: liked_list});
+})
+
 
 async function load(user_docs, req) {
     let album_docs = await Promise.all(user_docs[0]['friends'].map( async (friend) => {

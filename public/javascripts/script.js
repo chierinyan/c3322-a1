@@ -83,6 +83,19 @@ function turnto(dir) {
     get_album(( $('#pagenation').data('userid') ), ( $('#pagenation').data('current_page') + dir ));
 }
 
+function post_like(ev) {
+    let item_id = ev.target.parentElement.parentElement.id;
+    $.ajax({
+        url: '/postlike',
+        type: 'POST',
+        data: 'photovideoid=' + item_id.slice(5),
+        success: function (data) {
+            $(`#${item_id} > .liked`).replaceWith(gen_liked_div(data['likedby']));
+            ev.target.setAttribute('disabled', true);
+        }
+    });
+}
+
 function gen_album_li(album, my) {
     let album_li = $('<li>', {
         id: 'album_' + album['id'],
@@ -132,10 +145,31 @@ function gen_item_div(item) {
         attributes['muted'] = true;
     }
 
+    let like_button = $('<button>', {
+        class: 'like_button',
+        onclick: 'post_like(event);',
+        html: '&#x2665'
+    })
+    if ( item['likedby'].includes($('.username').text()) ) {
+        like_button.prop('disabled', true);
+    }
+
     $(tag, attributes).appendTo(media_div);
+    like_button.appendTo(media_div);
     media_div.appendTo(item_div);
+    gen_liked_div(item['likedby']).appendTo(item_div);
 
     return item_div;
+}
+
+function gen_liked_div(likedby) {
+    let liked_div = $('<div>', {class: 'liked'})
+    if (likedby.length === 0) {
+        return liked_div;
+    }
+
+    liked_div.html(likedby.join(', ') + '<br>liked this photo!');
+    return liked_div;
 }
 
 function disp_pagenation(userid, current_page) {
