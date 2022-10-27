@@ -44,6 +44,7 @@ function logout() {
 }
 
 function get_album(userid, page) {
+    close_view();
     $.ajax({
         url: '/getalbum',
         type: 'GET',
@@ -96,6 +97,17 @@ function post_like(ev) {
     });
 }
 
+function show_item(ev) {
+    $('#preview').hide();
+    $('#view > .item').replaceWith( $(ev.target).closest('.item').clone() );
+    $('#view').show();
+}
+
+function close_view() {
+    $('#view').hide();
+    $('#preview').show();
+}
+
 function gen_album_li(album, my) {
     let album_li = $('<li>', {
         id: 'album_' + album['id'],
@@ -129,15 +141,13 @@ function gen_album_li(album, my) {
 function gen_item_div(item) {
     let item_div = $('<div>', {
         id: 'item_' + item['_id'].toString(),
-        class: 'item'
+        class: 'item',
+        onclick: 'show_item(event)'
     });
     let media_div = $('<div>', {class: 'media'});
 
     let tag = '<img>';
-    let attributes = {
-        src: item['url'],
-        onclick: 'show_item(event)'
-    }
+    let attributes = {src: item['url']}
     if (item['url'].slice(-3) === 'mp4') {
         tag = '<video>';
         attributes['autoplay'] = true;

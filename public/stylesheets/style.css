@@ -172,12 +172,11 @@ input, button {
 .media {
     position: relative;
     width: 100%;
-    max-height: 350px;
 }
 
 #album .media :is(img, video) {
     width: 100%;
-    max-height: 100%;
+    max-height: 350px;
 }
 
 .like_button {
@@ -200,6 +199,25 @@ input, button {
 
 #album .liked {
     margin: 10px 5px;
+    text-align: center;
+}
+
+#view {
+    position: relative;
+    padding: 40px 50px 30px 30px;
+}
+
+#view > button {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    width: 40px;
+    height: 40px;
+    border: dotted;
+    border-width: thick;
+    border-radius: 50%;
+    border-color: #F8C471;
+    font: bolder;
     text-align: center;
 }
 
