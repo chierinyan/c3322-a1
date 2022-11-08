@@ -36,6 +36,7 @@ function login(ev) {
 }
 
 function logout() {
+    localStorage.clear();
     $.ajax({
         type: 'GET',
         url: '/logout',
@@ -65,10 +66,11 @@ function get_album(userid, page) {
     });
 }
 
-function switch_album(ev, userid, page) {
+function switch_album(ev, userid) {
     $('.selected').removeClass('selected');
     $(ev.target).closest('li').addClass('selected');
-    get_album(userid, page);
+    localStorage.setItem(userid, '0');
+    get_album(userid, 0);
 }
 
 function load(res) {
@@ -76,18 +78,22 @@ function load(res) {
     $('.username').text(res.albums[0].name);
     $('#motd').show();
 
-    localStorage.clear();
     for (let i=0; i<res.albums.length; i++) {
         let album = res.albums[i];
-        localStorage.setItem(album['id'], album['total_pages']);
+        $('body').data(album['id'], album['total_pages']);
+        localStorage.setItem(album['id'], '0')
         gen_album_li(album, (i===0)).appendTo('#albums_ul');
     }
 
     $('#albums').show();
 }
 
-function turnto(dir) {
-    get_album(( $('#pagenation').data('userid') ), ( $('#pagenation').data('current_page') + dir ));
+function turnto(direction) {
+    let userid = $('#pagenation').data('userid');
+    let page = parseInt(localStorage.getItem(userid));
+    page += direction;
+    localStorage.setItem(userid, page);
+    get_album(userid, page);
 }
 
 function post_like(ev, type) {
@@ -120,7 +126,7 @@ function close_view() {
 function gen_album_li(album, my) {
     let album_li = $('<li>', {
         id: 'album_' + album['id'],
-        onclick: `switch_album(event, "${album['id']}", 0);`
+        onclick: `switch_album(event, "${album['id']}");`
     });
 
     let profile = $('<div>', {class: 'profile'});
@@ -196,7 +202,7 @@ function gen_liked_div(likedby, type) {
 }
 
 function disp_pagenation(userid, current_page) {
-    let total_pages = parseInt(localStorage.getItem(userid));
+    let total_pages = $('body').data(userid);
     $('#footer').text(`${current_page+1} / ${total_pages}`)
     $('#pagenation > button').show().prop('disabled', false);
 
@@ -208,8 +214,6 @@ function disp_pagenation(userid, current_page) {
         $('#next').prop('disabled', true);
     }
 
-    $('#pagenation')
-        .data('current_page', current_page)
-        .data('userid', userid)
+    $('#pagenation').data('userid', userid);
 }
 

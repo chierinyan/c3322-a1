@@ -13,7 +13,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 
 const app = express();
-const db = monk('127.0.0.1:27017/album');
+const db = monk('127.0.0.1:27017/assignment1');
 
 app.use(logger('dev'));
 app.use(cookieParser());
@@ -46,7 +46,7 @@ app.post('/login', async (req, res) => {
     try {
         let user_docs = await req.user_list.find({username: req.body.username});
         if (user_docs.length !== 0 && user_docs[0]['password'] === req.body.password) {
-            res.cookie('user_id', user_docs[0]['_id'], {maxAge: 30*60*1000});
+            res.cookie('user_id', user_docs[0]['_id'].toString(), {maxAge: 30*60*1000});
             let albums = await load(user_docs, req);
             res.json({albums: albums});
         } else {
